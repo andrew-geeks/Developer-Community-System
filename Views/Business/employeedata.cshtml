@@ -1,0 +1,34 @@
+﻿
+@model IEnumerable<DCS_new.Models.employee>
+
+@{
+    ViewBag.Title = "employeedata";
+}
+
+<h2>Employee Data</h2>
+<br />
+
+<table id="table-main">
+    <tr>
+        <th>e_Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>s_Id</th>
+        <th>designation</th>
+        <th>status</th>
+        <th>Wage</th>
+    </tr>
+    @foreach (var data in (IEnumerable<DCS_new.Models.employee>)ViewData["empdata"])
+    {
+        <tr>
+            <td>@data.e_id</td>
+            <td class="">@data.name</td>
+            <td class="">@data.email</td>
+            <td><a href="/space/chat?sid=@data.s_id">@data.s_id</a></td>
+            <td class="">@data.designation</td>
+            <td class="">@data.status</td>
+            <td class="">Rs. @data.wage</td>
+        </tr>
+    }
+</table>
+

@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SpaceModelStoreContainer" CdmEntityContainer="SpacesEntities">
+    <EntitySetMapping Name="issues">
+      <EntityTypeMapping TypeName="SpaceModel.issue">
+        <MappingFragment StoreEntitySet="issues">
+          <ScalarProperty Name="i_id" ColumnName="i_id" />
+          <ScalarProperty Name="s_id" ColumnName="s_id" />
+          <ScalarProperty Name="priority" ColumnName="priority" />
+          <ScalarProperty Name="issue1" ColumnName="issue" />
+          <ScalarProperty Name="e_id" ColumnName="e_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="messages">
+      <EntityTypeMapping TypeName="SpaceModel.message">
+        <MappingFragment StoreEntitySet="messages">
+          <ScalarProperty Name="m_id" ColumnName="m_id" />
+          <ScalarProperty Name="e_id" ColumnName="e_id" />
+          <ScalarProperty Name="message1" ColumnName="message" />
+          <ScalarProperty Name="m_date" ColumnName="m_date" />
+          <ScalarProperty Name="s_id" ColumnName="s_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="spaces">
+      <EntityTypeMapping TypeName="SpaceModel.space">
+        <MappingFragment StoreEntitySet="spaces">
+          <ScalarProperty Name="s_id" ColumnName="s_id" />
+          <ScalarProperty Name="s_name" ColumnName="s_name" />
+          <ScalarProperty Name="s_status" ColumnName="s_status" />
+          <ScalarProperty Name="b_id" ColumnName="b_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tasks">
+      <EntityTypeMapping TypeName="SpaceModel.task">
+        <MappingFragment StoreEntitySet="tasks">
+          <ScalarProperty Name="t_id" ColumnName="t_id" />
+          <ScalarProperty Name="e_id" ColumnName="e_id" />
+          <ScalarProperty Name="task_desc" ColumnName="task_desc" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="s_id" ColumnName="s_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Businesses">
+      <EntityTypeMapping TypeName="SpaceModel.Business">
+        <MappingFragment StoreEntitySet="Business">
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="b_name" ColumnName="b_name" />
+          <ScalarProperty Name="b_id" ColumnName="b_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="employees">
+      <EntityTypeMapping TypeName="SpaceModel.employee">
+        <MappingFragment StoreEntitySet="employee">
+          <ScalarProperty Name="b_id" ColumnName="b_id" />
+          <ScalarProperty Name="wage" ColumnName="wage" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="empl_type" ColumnName="empl_type" />
+          <ScalarProperty Name="designation" ColumnName="designation" />
+          <ScalarProperty Name="s_id" ColumnName="s_id" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="e_id" ColumnName="e_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="freelancers">
+      <EntityTypeMapping TypeName="SpaceModel.freelancer">
+        <MappingFragment StoreEntitySet="freelancer">
+          <ScalarProperty Name="b_id" ColumnName="b_id" />
+          <ScalarProperty Name="s_id" ColumnName="s_id" />
+          <ScalarProperty Name="wage" ColumnName="wage" />
+          <ScalarProperty Name="designation" ColumnName="designation" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="f_id" ColumnName="f_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="wages">
+      <EntityTypeMapping TypeName="SpaceModel.wage">
+        <MappingFragment StoreEntitySet="wages">
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="b_id" ColumnName="b_id" />
+          <ScalarProperty Name="e_id" ColumnName="e_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

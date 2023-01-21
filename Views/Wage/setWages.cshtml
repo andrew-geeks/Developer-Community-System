@@ -1,0 +1,34 @@
+﻿@model DCS_new.Models.employeeModel
+
+@{
+    ViewBag.Title = "Set Wages";
+}
+
+<h2>Set Wages</h2>
+<br />
+
+@using (Html.BeginForm())
+{
+    <div class="container">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label>Enter employee id:</label>
+            @Html.TextBoxFor(x => x.e_id, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.e_id, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <label>Enter Wage:</label>
+            @Html.TextBoxFor(x => x.wage, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.wage, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Set Wage</button>
+        </div>
+        <a href="/business/employeedata?bid=@Session["b_id"]" target="_blank">Employee Wage Data</a>
+    </div>
+}
+
+@**https://stackoverflow.com/questions/44429163/how-to-get-data-to-dropdownlist-from-database-in-html-view **@
+
+
+

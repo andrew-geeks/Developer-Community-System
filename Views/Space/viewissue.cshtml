@@ -1,0 +1,16 @@
+﻿@model IEnumerable<DCS_new.Models.issue>
+
+    @{
+        ViewBag.Title = "viewissue";
+    }
+
+    <h2>View Issues</h2>
+
+
+    <ul>
+        @foreach (var data in (IEnumerable<DCS_new.Models.issue>)ViewData["is_data"])
+        {
+            <li style="background-color: red; width: 50%; text-align: left; border-radius: 5px;">@data.e_id : @data.issue1 : <a href="/space/completeissue?iid=@data.i_id">Set complete</a></li>
+
+        }
+    </ul>

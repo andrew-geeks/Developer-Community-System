@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SpaceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="issue">
+    <Key>
+      <PropertyRef Name="i_id" />
+    </Key>
+    <Property Name="i_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="s_id" Type="Int32" Nullable="false" />
+    <Property Name="priority" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="issue1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="e_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="space" Relationship="Self.FK__issues__s_id__04E4BC85" FromRole="issues" ToRole="spaces" />
+    <NavigationProperty Name="employee" Relationship="SpaceModel.FK__issues__e_id__05D8E0BE" FromRole="issue" ToRole="employee" />
+  </EntityType>
+  <EntityType Name="message">
+    <Key>
+      <PropertyRef Name="m_id" />
+    </Key>
+    <Property Name="m_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="e_id" Type="Int32" Nullable="false" />
+    <Property Name="message1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="m_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="s_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="space" Relationship="Self.FK__messages__s_id__02084FDA" FromRole="messages" ToRole="spaces" />
+    <NavigationProperty Name="employee" Relationship="SpaceModel.FK__messages__e_id__01142BA1" FromRole="message" ToRole="employee" />
+  </EntityType>
+  <EntityType Name="space">
+    <Key>
+      <PropertyRef Name="s_id" />
+    </Key>
+    <Property Name="s_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="s_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="s_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="b_id" Type="Int32" />
+    <NavigationProperty Name="issues" Relationship="Self.FK__issues__s_id__04E4BC85" FromRole="spaces" ToRole="issues" />
+    <NavigationProperty Name="messages" Relationship="Self.FK__messages__s_id__02084FDA" FromRole="spaces" ToRole="messages" />
+    <NavigationProperty Name="tasks" Relationship="Self.FK__tasks__s_id__7A672E12" FromRole="spaces" ToRole="tasks" />
+    <NavigationProperty Name="Business" Relationship="SpaceModel.FK__spaces__b_id__5CD6CB2B" FromRole="space" ToRole="Business" />
+    <NavigationProperty Name="freelancers" Relationship="SpaceModel.FK__freelancer__s_id__7E37BEF6" FromRole="space" ToRole="freelancer" />
+  </EntityType>
+  <EntityType Name="task">
+    <Key>
+      <PropertyRef Name="t_id" />
+    </Key>
+    <Property Name="t_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="e_id" Type="Int32" Nullable="false" />
+    <Property Name="task_desc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="s_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="space" Relationship="Self.FK__tasks__s_id__7A672E12" FromRole="tasks" ToRole="spaces" />
+    <NavigationProperty Name="employee" Relationship="SpaceModel.FK__tasks__e_id__797309D9" FromRole="task" ToRole="employee" />
+  </EntityType>
+  <Association Name="FK__issues__s_id__04E4BC85">
+    <End Role="spaces" Type="Self.space" Multiplicity="1" />
+    <End Role="issues" Type="Self.issue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="spaces">
+        <PropertyRef Name="s_id" />
+      </Principal>
+      <Dependent Role="issues">
+        <PropertyRef Name="s_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__messages__s_id__02084FDA">
+    <End Role="spaces" Type="Self.space" Multiplicity="1" />
+    <End Role="messages" Type="Self.message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="spaces">
+        <PropertyRef Name="s_id" />
+      </Principal>
+      <Dependent Role="messages">
+        <PropertyRef Name="s_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tasks__s_id__7A672E12">
+    <End Role="spaces" Type="Self.space" Multiplicity="1" />
+    <End Role="tasks" Type="Self.task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="spaces">
+        <PropertyRef Name="s_id" />
+      </Principal>
+      <Dependent Role="tasks">
+        <PropertyRef Name="s_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SpacesEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="issues" EntityType="Self.issue" />
+    <EntitySet Name="messages" EntityType="Self.message" />
+    <EntitySet Name="spaces" EntityType="Self.space" />
+    <EntitySet Name="tasks" EntityType="Self.task" />
+    <AssociationSet Name="FK__issues__s_id__04E4BC85" Association="Self.FK__issues__s_id__04E4BC85">
+      <End Role="spaces" EntitySet="spaces" />
+      <End Role="issues" EntitySet="issues" />
+    </AssociationSet>
+    <AssociationSet Name="FK__messages__s_id__02084FDA" Association="Self.FK__messages__s_id__02084FDA">
+      <End Role="spaces" EntitySet="spaces" />
+      <End Role="messages" EntitySet="messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tasks__s_id__7A672E12" Association="Self.FK__tasks__s_id__7A672E12">
+      <End Role="spaces" EntitySet="spaces" />
+      <End Role="tasks" EntitySet="tasks" />
+    </AssociationSet>
+    <EntitySet Name="Businesses" EntityType="SpaceModel.Business" />
+    <EntitySet Name="employees" EntityType="SpaceModel.employee" />
+    <EntitySet Name="freelancers" EntityType="SpaceModel.freelancer" />
+    <EntitySet Name="wages" EntityType="SpaceModel.wage" />
+    <AssociationSet Name="FK__employee__b_id__4E88ABD4" Association="SpaceModel.FK__employee__b_id__4E88ABD4">
+      <End Role="Business" EntitySet="Businesses" />
+      <End Role="employee" EntitySet="employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK__freelancer__b_id__7D439ABD" Association="SpaceModel.FK__freelancer__b_id__7D439ABD">
+      <End Role="Business" EntitySet="Businesses" />
+      <End Role="freelancer" EntitySet="freelancers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__spaces__b_id__5CD6CB2B" Association="SpaceModel.FK__spaces__b_id__5CD6CB2B">
+      <End Role="Business" EntitySet="Businesses" />
+      <End Role="space" EntitySet="spaces" />
+    </AssociationSet>
+    <AssociationSet Name="FK__wages__b_id__6FE99F9F" Association="SpaceModel.FK__wages__b_id__6FE99F9F">
+      <End Role="Business" EntitySet="Businesses" />
+      <End Role="wage" EntitySet="wages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__issues__e_id__05D8E0BE" Association="SpaceModel.FK__issues__e_id__05D8E0BE">
+      <End Role="employee" EntitySet="employees" />
+      <End Role="issue" EntitySet="issues" />
+    </AssociationSet>
+    <AssociationSet Name="FK__messages__e_id__01142BA1" Association="SpaceModel.FK__messages__e_id__01142BA1">
+      <End Role="employee" EntitySet="employees" />
+      <End Role="message" EntitySet="messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tasks__e_id__797309D9" Association="SpaceModel.FK__tasks__e_id__797309D9">
+      <End Role="employee" EntitySet="employees" />
+      <End Role="task" EntitySet="tasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__wages__e_id__70DDC3D8" Association="SpaceModel.FK__wages__e_id__70DDC3D8">
+      <End Role="employee" EntitySet="employees" />
+      <End Role="wage" EntitySet="wages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__freelancer__s_id__7E37BEF6" Association="SpaceModel.FK__freelancer__s_id__7E37BEF6">
+      <End Role="space" EntitySet="spaces" />
+      <End Role="freelancer" EntitySet="freelancers" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Business">
+    <Key>
+      <PropertyRef Name="b_id" />
+    </Key>
+    <Property Name="b_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="b_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="employees" Relationship="SpaceModel.FK__employee__b_id__4E88ABD4" FromRole="Business" ToRole="employee" />
+    <NavigationProperty Name="freelancers" Relationship="SpaceModel.FK__freelancer__b_id__7D439ABD" FromRole="Business" ToRole="freelancer" />
+    <NavigationProperty Name="spaces" Relationship="SpaceModel.FK__spaces__b_id__5CD6CB2B" FromRole="Business" ToRole="space" />
+    <NavigationProperty Name="wages" Relationship="SpaceModel.FK__wages__b_id__6FE99F9F" FromRole="Business" ToRole="wage" />
+  </EntityType>
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="e_id" />
+    </Key>
+    <Property Name="e_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="s_id" Type="Int32" />
+    <Property Name="designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="empl_type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="wage" Type="Int32" />
+    <Property Name="b_id" Type="Int32" />
+    <NavigationProperty Name="Business" Relationship="SpaceModel.FK__employee__b_id__4E88ABD4" FromRole="employee" ToRole="Business" />
+    <NavigationProperty Name="issues" Relationship="SpaceModel.FK__issues__e_id__05D8E0BE" FromRole="employee" ToRole="issue" />
+    <NavigationProperty Name="messages" Relationship="SpaceModel.FK__messages__e_id__01142BA1" FromRole="employee" ToRole="message" />
+    <NavigationProperty Name="tasks" Relationship="SpaceModel.FK__tasks__e_id__797309D9" FromRole="employee" ToRole="task" />
+    <NavigationProperty Name="wage1" Relationship="SpaceModel.FK__wages__e_id__70DDC3D8" FromRole="employee" ToRole="wage" />
+  </EntityType>
+  <EntityType Name="freelancer">
+    <Key>
+      <PropertyRef Name="f_id" />
+    </Key>
+    <Property Name="f_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="wage" Type="Int32" />
+    <Property Name="s_id" Type="Int32" />
+    <Property Name="b_id" Type="Int32" />
+    <NavigationProperty Name="Business" Relationship="SpaceModel.FK__freelancer__b_id__7D439ABD" FromRole="freelancer" ToRole="Business" />
+    <NavigationProperty Name="space" Relationship="SpaceModel.FK__freelancer__s_id__7E37BEF6" FromRole="freelancer" ToRole="space" />
+  </EntityType>
+  <EntityType Name="wage">
+    <Key>
+      <PropertyRef Name="e_id" />
+    </Key>
+    <Property Name="e_id" Type="Int32" Nullable="false" />
+    <Property Name="b_id" Type="Int32" Nullable="false" />
+    <Property Name="amount" Type="Int32" Nullable="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Business" Relationship="SpaceModel.FK__wages__b_id__6FE99F9F" FromRole="wage" ToRole="Business" />
+    <NavigationProperty Name="employee" Relationship="SpaceModel.FK__wages__e_id__70DDC3D8" FromRole="wage" ToRole="employee" />
+  </EntityType>
+  <Association Name="FK__employee__b_id__4E88ABD4">
+    <End Type="SpaceModel.Business" Role="Business" Multiplicity="0..1" />
+    <End Type="SpaceModel.employee" Role="employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="b_id" />
+      </Principal>
+      <Dependent Role="employee">
+        <PropertyRef Name="b_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__freelancer__b_id__7D439ABD">
+    <End Type="SpaceModel.Business" Role="Business" Multiplicity="0..1" />
+    <End Type="SpaceModel.freelancer" Role="freelancer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="b_id" />
+      </Principal>
+      <Dependent Role="freelancer">
+        <PropertyRef Name="b_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__spaces__b_id__5CD6CB2B">
+    <End Type="SpaceModel.Business" Role="Business" Multiplicity="0..1" />
+    <End Type="SpaceModel.space" Role="space" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="b_id" />
+      </Principal>
+      <Dependent Role="space">
+        <PropertyRef Name="b_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__wages__b_id__6FE99F9F">
+    <End Type="SpaceModel.Business" Role="Business" Multiplicity="1" />
+    <End Type="SpaceModel.wage" Role="wage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="b_id" />
+      </Principal>
+      <Dependent Role="wage">
+        <PropertyRef Name="b_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__issues__e_id__05D8E0BE">
+    <End Type="SpaceModel.employee" Role="employee" Multiplicity="1" />
+    <End Type="SpaceModel.issue" Role="issue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employee">
+        <PropertyRef Name="e_id" />
+      </Principal>
+      <Dependent Role="issue">
+        <PropertyRef Name="e_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__messages__e_id__01142BA1">
+    <End Type="SpaceModel.employee" Role="employee" Multiplicity="1" />
+    <End Type="SpaceModel.message" Role="message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employee">
+        <PropertyRef Name="e_id" />
+      </Principal>
+      <Dependent Role="message">
+        <PropertyRef Name="e_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tasks__e_id__797309D9">
+    <End Type="SpaceModel.employee" Role="employee" Multiplicity="1" />
+    <End Type="SpaceModel.task" Role="task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employee">
+        <PropertyRef Name="e_id" />
+      </Principal>
+      <Dependent Role="task">
+        <PropertyRef Name="e_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__wages__e_id__70DDC3D8">
+    <End Type="SpaceModel.employee" Role="employee" Multiplicity="1" />
+    <End Type="SpaceModel.wage" Role="wage" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="employee">
+        <PropertyRef Name="e_id" />
+      </Principal>
+      <Dependent Role="wage">
+        <PropertyRef Name="e_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__freelancer__s_id__7E37BEF6">
+    <End Type="SpaceModel.space" Role="space" Multiplicity="0..1" />
+    <End Type="SpaceModel.freelancer" Role="freelancer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="space">
+        <PropertyRef Name="s_id" />
+      </Principal>
+      <Dependent Role="freelancer">
+        <PropertyRef Name="s_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

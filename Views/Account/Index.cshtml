@@ -1,0 +1,31 @@
+﻿
+
+@{
+    ViewBag.Title = "Your Account";
+}
+
+
+<h2 class="">Welcome @ViewData["name"] 👋,</h2>
+<p>📧 @ViewData["email"]</p>
+<p>Adminstrator: @ViewData["admn"]</p>
+<hr />
+<form action="/Account/editProfile">
+    <button type="submit" class="btn btn-success form-line">Edit Profile</button>
+</form>
+<form action="/Account/changepassword">
+    <button type="submit" class="btn btn-warning form-line">Change Password</button>
+</form>
+<br />
+<br />
+
+@if (ViewData["sp"] == "False")
+{
+
+}
+else
+{
+    <h3>Your Spaces</h3>
+    <p># <a href="/space/chat?sid=@ViewData["url_sid"]">@ViewData["url_sp_name"]</a></p>
+}
+
+

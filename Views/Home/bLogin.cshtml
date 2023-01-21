@@ -1,0 +1,35 @@
+﻿@model DCS_new.Models.BusinessModel
+
+
+@{
+    ViewBag.Title = "Business Login";
+}
+
+<h2>Business Login</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div class="container">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label>Email:</label>
+        @Html.TextBoxFor(x => x.email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.email, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label>Enter password:</label>
+        @Html.PasswordFor(x => x.password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.password, "", new { @class = "text-danger" })
+    </div>
+    
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">LogIn</button>
+    </div>
+    <a href="/home/bsignup">New Corporate Account?</a>
+    <div class="form-group">
+        <label style="color:red;">@ViewBag.Notification</label>
+    </div>
+    
+</div>
+}

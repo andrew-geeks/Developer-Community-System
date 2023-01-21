@@ -1,0 +1,43 @@
+﻿@model DCS_new.Models.BusinessModel
+
+
+@{
+    ViewBag.Title = "Business Signup";
+}
+
+<h2>Business Signup</h2>
+
+@using (Html.BeginForm("bsignup", "Home", FormMethod.Post))
+{
+    <div class="container">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label>Enter Business Name:</label>
+            @Html.TextBoxFor(x => x.b_name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.b_name, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <label>Enter Email:</label>
+            @Html.TextBoxFor(x => x.email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.email, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <label>Enter Password:</label>
+            @Html.PasswordFor(x => x.password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.password, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <label>Confirm Password:</label>
+            @Html.PasswordFor(x => x.cpassword, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.cpassword, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">SignUp</button>
+        </div>
+        <a href="/home/blogin">Login to Corporate</a>
+        <div class="form-group">
+            <label style="color:red;">@ViewBag.Notification</label>
+        </div>
+
+    </div>
+}

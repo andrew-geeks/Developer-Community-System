@@ -1,0 +1,40 @@
+﻿@model DCS_new.Models.spaceModel
+
+
+@{
+    ViewBag.Title = "setstatus";
+}
+
+<h2>Set status for your space!</h2>
+<br />
+
+@using (Html.BeginForm())
+{
+    <div class="container">
+        <div class="form-group">
+            @Html.TextBoxFor(x => x.s_id, new {Value = ViewData["sid"], type="number", hidden="true" })
+        </div>
+        <div class="form-group">
+            <label>Your Space:</label>
+            @Html.TextBoxFor(x => x.s_name, new { disabled = "disabled", Value = ViewData["sname"] })
+        </div>
+
+        <div class="form-group">
+            <label>Select status:</label>
+            @Html.DropDownListFor(x => x.s_status, new SelectList(new string[] { "Available", "Busy", "Priority" }))
+            @Html.ValidationMessageFor(x => x.s_status, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <button class="btn btn-warning" type="submit">
+                Set status
+            </button>
+        </div>
+    </div>
+}
+
+<!--
+    
+@**
+   
+**@
+-->

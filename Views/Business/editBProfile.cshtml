@@ -1,0 +1,33 @@
+﻿@using DCS_new.Models
+@model DCS_new.Models.BusinessModel
+
+@{
+    ViewData["Title"] = "Edit Business Profile";
+    var data = ViewBag.Message;
+}
+
+<h4>Edit Your Profile <i style="color:purple" class="fas fa-user"></i></h4>
+<br />
+@using (Html.BeginForm())
+{
+
+    <div class="row mb-4">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="col">
+            <div class="form-outline">
+                <label class="form-label">Business Name</label>
+                @Html.TextBoxFor(m => m.b_name, new { @class = "form-control", /*@Value = data.name*/ })
+                @Html.ValidationMessageFor(m => m.b_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="form-outline mb-4">
+        <label class="form-label" for="">Email</label>
+        @Html.TextBoxFor(m => m.email, new { @class = "form-control", disabled="disabled", Value = ViewData["email"] })
+        @Html.ValidationMessageFor(x => x.email, "", new { @class = "text-danger" })
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+
+}
+
+

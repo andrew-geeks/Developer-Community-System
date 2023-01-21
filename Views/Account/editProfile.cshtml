@@ -1,0 +1,36 @@
+﻿@using DCS_new.Models
+@model DCS_new.Models.employeeModel
+
+@{
+    ViewData["Title"] = "editProfile";
+    var data = ViewBag.Message;
+}
+
+<h4>Edit Your Profile <i style="color:purple" class="fas fa-user"></i></h4>
+<br />
+@using (Html.BeginForm())
+{
+
+<div class="row mb-4">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="col">
+        <div class="form-outline">
+            <label class="form-label">Full name</label>
+            @Html.TextBoxFor(m => m.name, new { @class = "form-control", @Value = data.name })
+            @Html.ValidationMessageFor(m => m.name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+<div class="form-outline mb-4">
+    <label class="form-label" for="">Enter Business Id</label>
+    @Html.TextBoxFor(m => m.b_id, new { @class = "form-control", @Value = data.b_id })
+    @Html.ValidationMessageFor(x => x.b_id, "", new { @class = "text-danger" })
+</div>
+<div class="form-outline mb-4">
+    <label class="form-label" for="">Designation</label>
+    @Html.TextBoxFor(m => m.designation, new { @class = "form-control", @Value = data.designation })
+
+</div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+
+}

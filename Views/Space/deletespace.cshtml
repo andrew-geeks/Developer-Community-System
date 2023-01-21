@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "deletespace";
+}
+
+<h2>Delete Space💬</h2>
+<hr />
+<p>SID: @ViewData["sid"]</p>
+<p>Space Name: @ViewData["sname"]</p>
+<br />
+<p style="color:red;">Do you want to delete this space?</p>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <button class="btn btn-danger" type="submit">
+            Delete
+        </button>
+    </div>
+}

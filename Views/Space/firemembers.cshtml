@@ -1,0 +1,27 @@
+﻿@model DCS_new.Models.employee
+@{
+    ViewBag.Title = "remove members";
+}
+
+<h2>Remove members</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="container">
+        <div class="form-group">
+            <label>Select employee:</label>
+            @Html.DropDownListFor(m => m.e_id, new SelectList(ViewBag.namelist, "e_id", "name"), "--select employee--", new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.e_id, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">
+                Delete Employee
+            </button>
+        </div>
+    </div>
+
+
+
+}
+
+

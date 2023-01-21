@@ -1,0 +1,37 @@
+﻿@model DCS_new.Models.issue
+@{
+    ViewBag.Title = "Raise an Issue";
+}
+
+<h2>Raise an Issue</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="container">
+        <div class="form-group">
+            <label>Select Priority❗:</label>
+            @Html.DropDownListFor(x => x.priority, new SelectList(new string[] { "Low", "Medium", "High" }))
+
+        </div>
+        <div class="form-group">
+            <label>Select Employee to issue:</label>
+            @Html.DropDownListFor(m => m.e_id, new SelectList(ViewBag.namelist, "e_id", "name"), "--select employee--", new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.e_id, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group">
+            <label>Enter issue description(100 characters):</label>
+            <br />
+            @Html.TextAreaFor(m => m.issue1, new { rows = 4, cols = 60, maxlength = 100 })
+            <br />
+            @Html.ValidationMessageFor(x => x.issue1, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <button class="btn btn-warning" type="submit">
+                Raise Issue
+            </button>
+        </div>
+    </div>
+}
+
+

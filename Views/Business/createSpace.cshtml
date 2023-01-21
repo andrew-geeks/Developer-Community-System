@@ -1,0 +1,44 @@
+﻿@model DCS_new.Models.spaceModel
+
+
+
+@{
+    ViewBag.Title = "Create Space";
+}
+
+<h2>New Space</h2>
+<br />
+
+@using (Html.BeginForm())
+{
+    <div class="row mb-4">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="col">
+            <div class="form-outline">
+                <label class="form-label">Space name</label>
+                @Html.TextBoxFor(m => m.s_name, new { @class = "form-control", placeholder = "Enter a unique name" })
+                @Html.ValidationMessageFor(m => m.s_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="form-outline mb-4">
+        <label class="form-label" for="">Select Status Description</label><br />
+        @Html.DropDownListFor(m => m.s_status, new SelectList(new string[] { "Available", "Busy", "Priority" }))
+        @Html.ValidationMessageFor(x => x.s_status, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-outline mb-4">
+        <label class="form-label" for="">Business Id</label>
+        @Html.TextBoxFor(m => m.b_id, new { @class = "form-control", @Value = Session["b_id"], disabled = "disabled" })
+
+    </div>
+
+    <div class="form-outline mb-4">
+        <label class="form-label" for="">Head Id</label>
+        @Html.TextBoxFor(m => m.head_e_id, new { @class = "form-control", placeholder = "Assign head for space" })
+        @Html.ValidationMessageFor(x => x.head_e_id, "", new { @class = "text-danger" })
+        <a href="/business/employeedata?bid=@Session["b_id"]" target="_blank">Get employee details</a>
+    </div>
+    <button type="submit" class="btn btn-warning">Add Space</button>
+}
+
+

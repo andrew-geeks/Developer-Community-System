@@ -1,0 +1,66 @@
+﻿
+@model IEnumerable<DCS_new.Models.space>
+
+@{
+    ViewBag.Title = "Business Account";
+}
+
+<h2>Welcome @ViewData["bname"]</h2>
+<p>📧 @ViewData["bmail"]</p>
+<p>Employee count: @ViewData["ecount"]</p>
+<p>Business Id: @ViewData["bid"]</p>
+<hr />
+<div class="">
+    <form action="/business/editbprofile" class="form-line">
+        <button type="submit" class="btn btn-success ">Edit Business Profile</button>
+    </form>
+    <form action="/business/changebpassword" class="form-line">
+        <button type="submit" class="btn btn-warning ">Change Password</button>
+    </form>
+    <form action="/business/createspace" class="form-line">
+        <button type="submit" class="btn btn-primary ">Create Space+</button>
+    </form>
+    <form action="/wage/" class="form-line">
+        <button type="submit" class="btn btn-warning ">Pay Wages</button>
+    </form>
+   
+</div>
+<br />
+<hr />
+<a href="/business/employeedata?bid=@Session["b_id"]">Employee data</a>
+<a href="/business/freelancerdata?bid=@Session["b_id"]">Freelancers data</a>
+<hr />
+<h3>Your Spaces</h3>
+
+<table id="table-main">
+    <thead>
+        <tr>
+            <th>SID</th>
+            <th>SpaceName</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var data in (IEnumerable<DCS_new.Models.space>)ViewData["spacedata"])
+        {
+            <tr>
+                <td class="color">@data.s_id</td>
+                <td><a href="/space/chat?sid=@data.s_id">@data.s_name</a></td>
+                @if (data.s_status == "Available")
+                {
+                    <td>@data.s_status🟢</td>
+                }
+                else if(data.s_status == "Busy")
+                {
+                    <td>@data.s_status🟠</td>
+                }
+                else
+                {
+                    <td>@data.s_status🔴</td>
+                }
+
+            </tr>
+        }
+    </tbody>
+   
+</table>

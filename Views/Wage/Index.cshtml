@@ -1,0 +1,45 @@
+﻿@model IEnumerable<DCS_new.Models.employee>
+@{
+    ViewBag.Title = "Pay Wages";
+    var bid = Session["b_id"];
+}
+
+<h2>Pay Wages</h2>
+<hr />
+<p>Total Amount to be paid(per month): <span style="background-color:yellow;">Rs. @ViewData["wage_sum"]/-</span></p>
+<p>Business Id:<span>@bid</span></p>
+<p>Total Employees:<span>@ViewData["ecount"]</span></p>
+<div class="">
+    <form action="/wage/pay" class="form-line">
+        <button type="submit" class="btn btn-primary ">Pay Amount</button>
+    </form>
+    <form action="/wage/setwages" class="form-line">
+        <button type="submit" class="btn btn-warning ">Set Wages</button>
+    </form>
+</div>
+<br />
+<br />
+<hr />
+<h3>Employee Wage data</h3>
+<table>
+    <tr>
+        <th>Employee Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Employee Type</th>
+        <th>Designation</th>
+        <th>Wage</th>
+    </tr>
+    @foreach (var data in (IEnumerable<DCS_new.Models.employee>)ViewData["empwage"])
+    {
+        <tr>
+            <td>@data.e_id</td>
+            <td>@data.name</td>
+            <td>@data.email</td>
+            <td>@data.empl_type</td>
+            <td>@data.designation</td>
+            <td>Rs: @data.wage</td>
+        </tr>
+    }
+
+</table>

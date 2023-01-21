@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="19a824a54455412f8c7a2f687ec3aafb" Name="Diagram1">
+        <EntityTypeShape EntityType="businessModel.Business" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="businessModel.employee" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="businessModel.freelancer" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="businessModel.space" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="businessModel.wage" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="businessModel.FK__employee__b_id__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="businessModel.FK__freelancer__b_id__7D439ABD" ManuallyRouted="false" />
+        <AssociationConnector Association="businessModel.FK__spaces__b_id__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="businessModel.FK__wages__b_id__6FE99F9F" ManuallyRouted="false" />
+        <AssociationConnector Association="businessModel.FK__wages__e_id__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="businessModel.FK__freelancer__s_id__7E37BEF6" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<DCS_new.Models.employee>
+@{
+    ViewBag.Title = "details";
+}
+
+<h2>Space Details</h2>
+
+<div style="padding-top:30px">
+    @if ((string)Session["sp_head"] == "True" || (string)Session["actype"] == "business")
+    {
+        <form action="/space/addmembers" class="form-line" method="get">
+            <input type="hidden" name="sid" value=@Session["curr_sid"] />
+            <button type="submit" class="btn btn-primary">Add Members+</button>
+        </form>
+        <form action="/space/firemembers" method="get" class="form-line">
+            <input type="hidden" name="sid" value=@Session["curr_sid"] />
+            <button type="submit" class="btn btn-warning">Remove Members</button>
+        </form>
+        if ((string)Session["sp_head"] == "True")
+        {
+            <form action="/space/setstatus" method="get" class="form-line">
+                <button type="submit" class="btn btn-warning">Change Status</button>
+            </form>
+        }
+        if ((string)Session["actype"] == "business")
+        {
+            <form action="/space/deletespace" class="form-line">
+                <input type="hidden" name="sid" value=@Session["curr_sid"] />
+                <button type="submit" class="btn btn-danger">Delete Space</button>
+            </form>
+        }
+        else
+        {
+            <form action="/space/deletespace" class="form-line">
+                <input type="hidden" name="sid" value=@Session["curr_sid"] />
+                <button type="submit" class="btn btn-danger" disabled>Delete Space</button>
+            </form>
+        }
+
+
+    }
+    else
+    {
+        <form action="/space/addmembers" class="form-line" method="get">
+            <input type="hidden" name="sid" value=@Session["curr_sid"] />
+            <button type="submit" class="btn btn-primary" disabled>Add Members+</button>
+        </form>
+        <form action="/space/addmembers" method="get" class="form-line">
+            <input type="hidden" name="sid" value=@Session["curr_sid"] />
+            <button type="submit" class="btn btn-warning" disabled>Remove Members</button>
+        </form>
+        <form action="/space/deletespace" class="form-line">
+            <input type="hidden" name="sid" value=@Session["curr_sid"] />
+            <button type="submit" class="btn btn-danger" disabled>Delete Space</button>
+        </form>
+    }
+
+</div>
+<br />
+<br />
+<hr />
+<div style="padding-top:30px">
+    <h5>Members</h5>
+    <table id="table-main">
+        <tr>
+            <th>Employee Name</th>
+            <th>Employee Type</th>
+            <th>Status</th>
+            <th>Designation</th>
+        </tr>
+        @foreach (var data in (IEnumerable<DCS_new.Models.employee>)ViewData["employeedata"])
+            {
+                <tr>
+                    <td>@data.e_id</td>
+                    <td>@data.name</td>
+                    <td>@data.empl_type</td>
+                    <td>@data.status</td>
+                    <td>@data.designation</td>
+                </tr>
+            }
+
+    </table>
+</div>
+<br />
+

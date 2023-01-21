@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="localAccount" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Business">
+    <Key>
+      <PropertyRef Name="b_id" />
+    </Key>
+    <Property Name="b_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="b_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="employees" Relationship="Self.FK__employee__b_id__4E88ABD4" FromRole="Business" ToRole="employee" />
+    <NavigationProperty Name="freelancers" Relationship="Self.FK__freelancer__b_id__7D439ABD" FromRole="Business" ToRole="freelancer" />
+  </EntityType>
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="e_id" />
+    </Key>
+    <Property Name="e_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="s_id" Type="Int32" />
+    <Property Name="designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="empl_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="wage" Type="Int32" />
+    <Property Name="b_id" Type="Int32" />
+    <NavigationProperty Name="Business" Relationship="Self.FK__employee__b_id__4E88ABD4" FromRole="employee" ToRole="Business" />
+  </EntityType>
+  <EntityType Name="freelancer">
+    <Key>
+      <PropertyRef Name="f_id" />
+    </Key>
+    <Property Name="f_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="wage" Type="Int32" />
+    <Property Name="s_id" Type="Int32" />
+    <Property Name="b_id" Type="Int32" />
+    <NavigationProperty Name="Business" Relationship="Self.FK__freelancer__b_id__7D439ABD" FromRole="freelancer" ToRole="Business" />
+  </EntityType>
+  <Association Name="FK__employee__b_id__4E88ABD4">
+    <End Role="Business" Type="Self.Business" Multiplicity="0..1" />
+    <End Role="employee" Type="Self.employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="b_id" />
+      </Principal>
+      <Dependent Role="employee">
+        <PropertyRef Name="b_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__freelancer__b_id__7D439ABD">
+    <End Role="Business" Type="Self.Business" Multiplicity="0..1" />
+    <End Role="freelancer" Type="Self.freelancer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="b_id" />
+      </Principal>
+      <Dependent Role="freelancer">
+        <PropertyRef Name="b_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="localEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Businesses" EntityType="Self.Business" />
+    <EntitySet Name="employees" EntityType="Self.employee" />
+    <EntitySet Name="freelancers" EntityType="Self.freelancer" />
+    <AssociationSet Name="FK__employee__b_id__4E88ABD4" Association="Self.FK__employee__b_id__4E88ABD4">
+      <End Role="Business" EntitySet="Businesses" />
+      <End Role="employee" EntitySet="employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK__freelancer__b_id__7D439ABD" Association="Self.FK__freelancer__b_id__7D439ABD">
+      <End Role="Business" EntitySet="Businesses" />
+      <End Role="freelancer" EntitySet="freelancers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,427 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="businessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Business">
+          <Key>
+            <PropertyRef Name="b_id" />
+          </Key>
+          <Property Name="b_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="b_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="e_id" />
+          </Key>
+          <Property Name="e_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="s_id" Type="int" />
+          <Property Name="designation" Type="varchar" MaxLength="50" />
+          <Property Name="empl_type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="wage" Type="int" />
+          <Property Name="b_id" Type="int" />
+        </EntityType>
+        <EntityType Name="freelancer">
+          <Key>
+            <PropertyRef Name="f_id" />
+          </Key>
+          <Property Name="f_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="designation" Type="varchar" MaxLength="50" />
+          <Property Name="wage" Type="int" />
+          <Property Name="s_id" Type="int" />
+          <Property Name="b_id" Type="int" />
+        </EntityType>
+        <EntityType Name="spaces">
+          <Key>
+            <PropertyRef Name="s_id" />
+          </Key>
+          <Property Name="s_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="s_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="s_status" Type="varchar" MaxLength="50" />
+          <Property Name="b_id" Type="int" />
+        </EntityType>
+        <EntityType Name="wages">
+          <Key>
+            <PropertyRef Name="e_id" />
+          </Key>
+          <Property Name="e_id" Type="int" Nullable="false" />
+          <Property Name="b_id" Type="int" Nullable="false" />
+          <Property Name="amount" Type="int" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__employee__b_id__4E88ABD4">
+          <End Role="Business" Type="Self.Business" Multiplicity="0..1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="b_id" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="b_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__freelancer__b_id__7D439ABD">
+          <End Role="Business" Type="Self.Business" Multiplicity="0..1" />
+          <End Role="freelancer" Type="Self.freelancer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="b_id" />
+            </Principal>
+            <Dependent Role="freelancer">
+              <PropertyRef Name="b_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__freelancer__s_id__7E37BEF6">
+          <End Role="spaces" Type="Self.spaces" Multiplicity="0..1" />
+          <End Role="freelancer" Type="Self.freelancer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="spaces">
+              <PropertyRef Name="s_id" />
+            </Principal>
+            <Dependent Role="freelancer">
+              <PropertyRef Name="s_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__spaces__b_id__5CD6CB2B">
+          <End Role="Business" Type="Self.Business" Multiplicity="0..1" />
+          <End Role="spaces" Type="Self.spaces" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="b_id" />
+            </Principal>
+            <Dependent Role="spaces">
+              <PropertyRef Name="b_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wages__b_id__6FE99F9F">
+          <End Role="Business" Type="Self.Business" Multiplicity="1" />
+          <End Role="wages" Type="Self.wages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="b_id" />
+            </Principal>
+            <Dependent Role="wages">
+              <PropertyRef Name="b_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wages__e_id__70DDC3D8">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="wages" Type="Self.wages" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="e_id" />
+            </Principal>
+            <Dependent Role="wages">
+              <PropertyRef Name="e_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="businessModelStoreContainer">
+          <EntitySet Name="Business" EntityType="Self.Business" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="freelancer" EntityType="Self.freelancer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="spaces" EntityType="Self.spaces" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="wages" EntityType="Self.wages" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__employee__b_id__4E88ABD4" Association="Self.FK__employee__b_id__4E88ABD4">
+            <End Role="Business" EntitySet="Business" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__freelancer__b_id__7D439ABD" Association="Self.FK__freelancer__b_id__7D439ABD">
+            <End Role="Business" EntitySet="Business" />
+            <End Role="freelancer" EntitySet="freelancer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__freelancer__s_id__7E37BEF6" Association="Self.FK__freelancer__s_id__7E37BEF6">
+            <End Role="spaces" EntitySet="spaces" />
+            <End Role="freelancer" EntitySet="freelancer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__spaces__b_id__5CD6CB2B" Association="Self.FK__spaces__b_id__5CD6CB2B">
+            <End Role="Business" EntitySet="Business" />
+            <End Role="spaces" EntitySet="spaces" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wages__b_id__6FE99F9F" Association="Self.FK__wages__b_id__6FE99F9F">
+            <End Role="Business" EntitySet="Business" />
+            <End Role="wages" EntitySet="wages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wages__e_id__70DDC3D8" Association="Self.FK__wages__e_id__70DDC3D8">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="wages" EntitySet="wages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="businessModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Business">
+          <Key>
+            <PropertyRef Name="b_id" />
+          </Key>
+          <Property Name="b_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="b_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="employees" Relationship="Self.FK__employee__b_id__4E88ABD4" FromRole="Business" ToRole="employee" />
+          <NavigationProperty Name="freelancers" Relationship="Self.FK__freelancer__b_id__7D439ABD" FromRole="Business" ToRole="freelancer" />
+          <NavigationProperty Name="spaces" Relationship="Self.FK__spaces__b_id__5CD6CB2B" FromRole="Business" ToRole="spaces" />
+          <NavigationProperty Name="wages" Relationship="Self.FK__wages__b_id__6FE99F9F" FromRole="Business" ToRole="wages" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="e_id" />
+          </Key>
+          <Property Name="e_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="s_id" Type="Int32" />
+          <Property Name="designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="empl_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="wage" Type="Int32" />
+          <Property Name="b_id" Type="Int32" />
+          <NavigationProperty Name="Business" Relationship="Self.FK__employee__b_id__4E88ABD4" FromRole="employee" ToRole="Business" />
+          <NavigationProperty Name="wage1" Relationship="Self.FK__wages__e_id__70DDC3D8" FromRole="employee" ToRole="wages" />
+        </EntityType>
+        <EntityType Name="freelancer">
+          <Key>
+            <PropertyRef Name="f_id" />
+          </Key>
+          <Property Name="f_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="wage" Type="Int32" />
+          <Property Name="s_id" Type="Int32" />
+          <Property Name="b_id" Type="Int32" />
+          <NavigationProperty Name="Business" Relationship="Self.FK__freelancer__b_id__7D439ABD" FromRole="freelancer" ToRole="Business" />
+          <NavigationProperty Name="space" Relationship="Self.FK__freelancer__s_id__7E37BEF6" FromRole="freelancer" ToRole="spaces" />
+        </EntityType>
+        <EntityType Name="space">
+          <Key>
+            <PropertyRef Name="s_id" />
+          </Key>
+          <Property Name="s_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="s_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="s_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="b_id" Type="Int32" />
+          <NavigationProperty Name="Business" Relationship="Self.FK__spaces__b_id__5CD6CB2B" FromRole="spaces" ToRole="Business" />
+          <NavigationProperty Name="freelancers" Relationship="Self.FK__freelancer__s_id__7E37BEF6" FromRole="spaces" ToRole="freelancer" />
+        </EntityType>
+        <EntityType Name="wage">
+          <Key>
+            <PropertyRef Name="e_id" />
+          </Key>
+          <Property Name="e_id" Type="Int32" Nullable="false" />
+          <Property Name="b_id" Type="Int32" Nullable="false" />
+          <Property Name="amount" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Business" Relationship="Self.FK__wages__b_id__6FE99F9F" FromRole="wages" ToRole="Business" />
+          <NavigationProperty Name="employee" Relationship="Self.FK__wages__e_id__70DDC3D8" FromRole="wages" ToRole="employee" />
+        </EntityType>
+        <Association Name="FK__employee__b_id__4E88ABD4">
+          <End Role="Business" Type="Self.Business" Multiplicity="0..1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="b_id" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="b_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__freelancer__b_id__7D439ABD">
+          <End Role="Business" Type="Self.Business" Multiplicity="0..1" />
+          <End Role="freelancer" Type="Self.freelancer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="b_id" />
+            </Principal>
+            <Dependent Role="freelancer">
+              <PropertyRef Name="b_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__spaces__b_id__5CD6CB2B">
+          <End Role="Business" Type="Self.Business" Multiplicity="0..1" />
+          <End Role="spaces" Type="Self.space" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="b_id" />
+            </Principal>
+            <Dependent Role="spaces">
+              <PropertyRef Name="b_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wages__b_id__6FE99F9F">
+          <End Role="Business" Type="Self.Business" Multiplicity="1" />
+          <End Role="wages" Type="Self.wage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="b_id" />
+            </Principal>
+            <Dependent Role="wages">
+              <PropertyRef Name="b_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wages__e_id__70DDC3D8">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="wages" Type="Self.wage" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="e_id" />
+            </Principal>
+            <Dependent Role="wages">
+              <PropertyRef Name="e_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__freelancer__s_id__7E37BEF6">
+          <End Role="spaces" Type="Self.space" Multiplicity="0..1" />
+          <End Role="freelancer" Type="Self.freelancer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="spaces">
+              <PropertyRef Name="s_id" />
+            </Principal>
+            <Dependent Role="freelancer">
+              <PropertyRef Name="s_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="businessEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Businesses" EntityType="Self.Business" />
+          <EntitySet Name="employees" EntityType="Self.employee" />
+          <EntitySet Name="freelancers" EntityType="Self.freelancer" />
+          <EntitySet Name="spaces" EntityType="Self.space" />
+          <EntitySet Name="wages" EntityType="Self.wage" />
+          <AssociationSet Name="FK__employee__b_id__4E88ABD4" Association="Self.FK__employee__b_id__4E88ABD4">
+            <End Role="Business" EntitySet="Businesses" />
+            <End Role="employee" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__freelancer__b_id__7D439ABD" Association="Self.FK__freelancer__b_id__7D439ABD">
+            <End Role="Business" EntitySet="Businesses" />
+            <End Role="freelancer" EntitySet="freelancers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__spaces__b_id__5CD6CB2B" Association="Self.FK__spaces__b_id__5CD6CB2B">
+            <End Role="Business" EntitySet="Businesses" />
+            <End Role="spaces" EntitySet="spaces" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wages__b_id__6FE99F9F" Association="Self.FK__wages__b_id__6FE99F9F">
+            <End Role="Business" EntitySet="Businesses" />
+            <End Role="wages" EntitySet="wages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wages__e_id__70DDC3D8" Association="Self.FK__wages__e_id__70DDC3D8">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="wages" EntitySet="wages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__freelancer__s_id__7E37BEF6" Association="Self.FK__freelancer__s_id__7E37BEF6">
+            <End Role="spaces" EntitySet="spaces" />
+            <End Role="freelancer" EntitySet="freelancers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="businessModelStoreContainer" CdmEntityContainer="businessEntities">
+          <EntitySetMapping Name="Businesses">
+            <EntityTypeMapping TypeName="businessModel.Business">
+              <MappingFragment StoreEntitySet="Business">
+                <ScalarProperty Name="b_id" ColumnName="b_id" />
+                <ScalarProperty Name="b_name" ColumnName="b_name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="businessModel.employee">
+              <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="e_id" ColumnName="e_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="s_id" ColumnName="s_id" />
+                <ScalarProperty Name="designation" ColumnName="designation" />
+                <ScalarProperty Name="empl_type" ColumnName="empl_type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="wage" ColumnName="wage" />
+                <ScalarProperty Name="b_id" ColumnName="b_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="freelancers">
+            <EntityTypeMapping TypeName="businessModel.freelancer">
+              <MappingFragment StoreEntitySet="freelancer">
+                <ScalarProperty Name="f_id" ColumnName="f_id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="designation" ColumnName="designation" />
+                <ScalarProperty Name="wage" ColumnName="wage" />
+                <ScalarProperty Name="s_id" ColumnName="s_id" />
+                <ScalarProperty Name="b_id" ColumnName="b_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="spaces">
+            <EntityTypeMapping TypeName="businessModel.space">
+              <MappingFragment StoreEntitySet="spaces">
+                <ScalarProperty Name="s_id" ColumnName="s_id" />
+                <ScalarProperty Name="s_name" ColumnName="s_name" />
+                <ScalarProperty Name="s_status" ColumnName="s_status" />
+                <ScalarProperty Name="b_id" ColumnName="b_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="wages">
+            <EntityTypeMapping TypeName="businessModel.wage">
+              <MappingFragment StoreEntitySet="wages">
+                <ScalarProperty Name="e_id" ColumnName="e_id" />
+                <ScalarProperty Name="b_id" ColumnName="b_id" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

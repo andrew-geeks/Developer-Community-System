@@ -1,0 +1,31 @@
+﻿@model IEnumerable<DCS_new.Models.freelancer>
+
+@{
+    ViewBag.Title = "freelancerdata";
+}
+
+<h2>Freelancer Data</h2>
+<br />
+
+<table>
+    <tr>
+        <th>e_Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>s_Id</th>
+        <th>designation</th>
+        <th>Wage</th>
+    </tr>
+    @foreach (var data in (IEnumerable<DCS_new.Models.freelancer>)ViewData["fdata"])
+    {
+        <tr>
+            <td>@data.f_id</td>
+            <td class="">@data.name</td>
+            <td class="">@data.email</td>
+            <td><a href="/space/chat?sid=@data.s_id">@data.s_id</a></td>
+            <td class="">@data.designation</td>
+            <td class="">Rs. @data.wage</td>
+        </tr>
+    }
+</table>
+
